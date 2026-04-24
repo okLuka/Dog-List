@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+
 import fetchProducts from "@/services/productsApi";
 import { setProducts } from "@/store/slices/productsSlice";
 import ProductCard from "@/components/product-card/ProductCard";
@@ -45,7 +46,7 @@ export default function ProductsPage() {
 
       <div className="grid gap-4 mt-6 sm:grid-cols-2 lg:grid-cols-3">
         {filteredProducts.map((item) => (
-          <ProductCard key={item.id} product={item}/>
+          <ProductCard key={item.id} product={item} />
         ))}
       </div>
     </main>
