@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+;
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 
 import fetchProducts from "@/services/productsApi";
 import { setProducts } from "@/store/slices/productsSlice";
@@ -10,21 +11,29 @@ import type { Product } from "@/types/product";
 export default function ProductsPage() {
   
   const url = 'https://dog.ceo/api/breeds/list/all';
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  useEffect (() => {
-    const loadProducts = async () => {
-      const products = await fetchProducts(url)
-      dispatch(setProducts(products))
-    };
-    loadProducts()
-  }, [dispatch, url]);
+  useEffect(() => {
+  const loadProducts = async () => {
+    const saved = localStorage.getItem("products");
+
+    if (saved) {
+      dispatch(setProducts(JSON.parse(saved)));
+      return;
+    }
+
+    const products = await fetchProducts(url);
+    dispatch(setProducts(products));
+  };
+
+  loadProducts();
+}, [dispatch, url]);
 
   const [filter, setFilter] = useState<"all" | "favorites">("all");
 
   
 
-  const products : Product[] = useSelector((state) =>  state.products.items);
+  const products : Product[] = useAppSelector((state) =>  state.products.items);
 
   const filteredProducts =
    filter === "all"

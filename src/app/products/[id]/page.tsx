@@ -1,7 +1,7 @@
 "use client";
 import type { Product } from "@/types/product";
 import { useRouter } from "next/navigation";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "@/store/hooks";
 import React from "react";
 
 type ProductPageProps = {
@@ -11,7 +11,7 @@ type ProductPageProps = {
 export default function ProductPage({ params }: ProductPageProps) {
   const {id} = React.use(params) ;
   const router = useRouter();
-  const product : Product | undefined = useSelector((state : any) => state.products.items.find((item : Product) => item.id === id));
+  const product : Product | undefined = useAppSelector((state) => state.products.items.find((item) => item.id === id));
   if (!product) {
     return (
       <>

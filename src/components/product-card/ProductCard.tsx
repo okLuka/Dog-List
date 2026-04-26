@@ -1,6 +1,6 @@
 "use client"
 import type { Product } from "@/types/product";
-import { useDispatch} from "react-redux";
+import { useAppDispatch } from "@/store/hooks";
 import { useRouter } from "next/navigation";
 import { toggleLike, deleteProduct } from "@/store/slices/productsSlice";
 
@@ -10,7 +10,7 @@ type Props = {
 
 export default function ProductCard({product} : Props) {
 
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const router = useRouter();
 
     return(
